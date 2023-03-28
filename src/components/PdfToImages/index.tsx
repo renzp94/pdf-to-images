@@ -17,7 +17,7 @@ const PdfToImages = () => {
   const statusTip = statusTexts[status]
   const onChange = async (info: UploadChangeParam<UploadFile<any>>) => {
     const { status, originFileObj, name } = info.file
-    if (status === 'error' && originFileObj) {
+    if (['error', 'done'].includes(status as string) && originFileObj) {
       try {
         setStatus('transform')
         await transformSave(originFileObj, name)
