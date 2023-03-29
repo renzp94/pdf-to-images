@@ -9,7 +9,7 @@
     "preview": "rzpack preview",
     "prepare": "npx simple-git-hooks",
     "cz": "git-cz",
-    "release": "standard-version"
+    "release": "standard-version && git push --follow-tags origin main"
   },
   "browserslist": [
     ">0.2%",
