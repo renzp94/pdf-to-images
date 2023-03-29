@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { message, Modal, Spin, Upload } from 'antd'
 import type { RcFile } from 'antd/es/upload'
 import { InboxOutlined } from '@ant-design/icons'
@@ -20,6 +20,7 @@ export interface TransformFile {
 const PdfToImages = () => {
   const [files, setFiles] = useState<TransformFile[]>([])
   const [loading, setLoading] = useState(false)
+  const uploadFileCount = useRef<number | undefined>()
 
   const onBeforeUpload = async (file: RcFile, fileList: RcFile[]) => {
     if (file.type !== 'application/pdf') {
@@ -28,7 +29,10 @@ const PdfToImages = () => {
     }
     try {
       setLoading(true)
-
+      // 未记录要上传的数量，则记录一下
+      if (uploadFileCount.current === undefined) {
+        uploadFileCount.current = fileList.length
+      }
       const { cover, total } = await getTransformFileInfo(file)
       const target: TransformFile = {
         id: Date.now(),
@@ -37,15 +41,17 @@ const PdfToImages = () => {
         total,
       }
 
-      setFiles(val => {
-        const list = [...val, target]
-        if (fileList.length === list.length) {
+      setFiles(val => [...val, target])
+    } finally {
+      if (uploadFileCount.current !== undefined) {
+        // 不管成功失败都减1
+        uploadFileCount.current = uploadFileCount.current - 1
+
+        if (uploadFileCount.current === 0) {
+          uploadFileCount.current = undefined
           setLoading(false)
         }
-        return list
-      })
-    } catch {
-      setLoading(false)
+      }
     }
 
     return false
