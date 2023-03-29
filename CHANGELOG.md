@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/renzp94/pdf-to-images/compare/v0.0.5...v0.0.6) (2023-03-29)
+
+
+### 新功能
+
+* 添加回到顶部及github链接 ([348bb61](https://github.com/renzp94/pdf-to-images/commit/348bb6150a6ca63a2311800119ad04a9a2c4c752))
+
+
+### Bug修复
+
+* 修复第二次上传多个文件时无法取消loading的问题 ([9238e6c](https://github.com/renzp94/pdf-to-images/commit/9238e6c1259d8515e930a01d60e71f6ee90de796))
+
+
+### CI配置
+
+* upgrade rzpack ([5a76a5a](https://github.com/renzp94/pdf-to-images/commit/5a76a5a00a0a087a35599778cbbd11e8da0c3492))
+
+
+### 其他
+
+* 添加logo ([619c0f3](https://github.com/renzp94/pdf-to-images/commit/619c0f3a7fb0b9da620df389af58dd7eaee3ee05))
+
 ### [0.0.5](https://github.com/renzp94/pdf-to-images/compare/v0.0.4...v0.0.5) (2023-03-29)
 
 
