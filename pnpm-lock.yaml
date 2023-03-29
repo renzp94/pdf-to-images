@@ -25,7 +25,7 @@ specifiers:
   prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
-  rzpack: ^0.0.1
+  rzpack: ^0.0.2
   simple-git-hooks: ^2.8.1
   standard-version: ^9.5.0
   stylelint: ^14.15.0
@@ -61,7 +61,7 @@ devDependencies:
   eslint-plugin-react-hooks: 4.6.0_eslint@8.36.0
   lint-staged: 13.2.0
   prettier: 2.8.7
-  rzpack: 0.0.1
+  rzpack: 0.0.2
   simple-git-hooks: 2.8.1
   standard-version: 9.5.0
   stylelint: 14.16.1
@@ -2813,7 +2813,7 @@ packages:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
       '@types/eslint': 8.21.3
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
     dev: true
 
   /@types/eslint/8.21.3:
@@ -10184,8 +10184,8 @@ packages:
       - supports-color
     dev: true
 
-  /rzpack/0.0.1:
-    resolution: {integrity: sha512-DAmfaO6Cv5RRslS1qX+czKF8nqLy8NMvVMHn/2UwkqF8JzO74q7ZERuLg3suPvrWOIhvRrMULfWJgt0iKQ0qgA==}
+  /rzpack/0.0.2:
+    resolution: {integrity: sha512-7jIyIStSgbG1IZKkG8lB197ki28J+DcqXTSPVYe801eLWHyh6hTgHh/g+7KI6KWRwv7e4rghfZA5rCfrx/XWBg==}
     hasBin: true
     dependencies:
       '@babel/core': 7.21.3
