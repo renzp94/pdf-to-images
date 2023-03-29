@@ -2,9 +2,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 500px;
   height: 100%;
-  padding: 16px;
+  margin: 0 auto;
+}
+
+.header {
+  width: 100%;
+  padding: 16px 0;
+  text-align: right;
+
+  &-icon {
+    transition: color 0.3s;
+    color: rgb(0 0 0 / 25%);
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+    }
+  }
 }
 
 .panel {
