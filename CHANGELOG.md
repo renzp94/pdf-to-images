@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/renzp94/pdf-to-images/compare/v0.0.2...v0.0.3) (2023-03-29)
+
+
+### Bug修复
+
+* 修复转换页面大小范围限制错误的问题 ([bf18a37](https://github.com/renzp94/pdf-to-images/commit/bf18a37feaecb4cf0255ec441a1dc183d0c95ca1))
+
 ### 0.0.2 (2023-03-29)
 
 
