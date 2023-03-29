@@ -3,20 +3,20 @@ import React, { useEffect, useState } from 'react'
 
 export interface PaginationProps {
   value?: number[]
+  max?: number
+  min?: number
   onChange?: (values: number[]) => void
 }
 
-const Pagination = ({ value, onChange }: PaginationProps) => {
+interface Scope {
+  startMax: number
+  endMin: number
+}
+
+const Pagination = ({ value, max, min, onChange }: PaginationProps) => {
   const [start = 1, end] = value ?? []
 
-  const [scope, setScope] = useState<
-    | {
-        startMax: number
-        endMin: number
-      }
-    | undefined
-  >()
-
+  const [scope, setScope] = useState<Scope | undefined>()
   useEffect(() => {
     setScope({
       startMax: end,
@@ -25,41 +25,28 @@ const Pagination = ({ value, onChange }: PaginationProps) => {
   }, [start, end])
 
   const onStartChange = (value: number | null) => {
-    const start = value ?? 1
-    setScope(val => {
-      if (val) {
-        return { ...val, endMin: start }
-      }
-
-      return val
-    })
-
-    onChange?.([start, end])
+    const startValue = value ?? 1
+    setScope(val => ({ ...val, endMin: startValue } as Scope))
+    onChange?.([startValue, end])
   }
 
   const onEndChange = (value: number | null) => {
-    const end = value ?? 1
-    setScope(val => {
-      if (val) {
-        return { ...val, startMax: end }
-      }
-
-      return val
-    })
-    onChange?.([start, end])
+    const endValue = value ?? 1
+    setScope(val => ({ ...val, startMax: endValue } as Scope))
+    onChange?.([start, endValue])
   }
 
   return (
     <Space>
       <InputNumber
-        min={1}
+        min={min}
         max={scope?.startMax}
         precision={0}
         value={start}
         onChange={onStartChange}
       />
       <span>~</span>
-      <InputNumber min={scope?.endMin} max={end} precision={0} value={end} onChange={onEndChange} />
+      <InputNumber min={scope?.endMin} max={max} precision={0} value={end} onChange={onEndChange} />
     </Space>
   )
 }

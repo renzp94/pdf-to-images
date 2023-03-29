@@ -54,7 +54,7 @@ const PdfToImages = () => {
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
-          <p className="ant-upload-text">点击或者拖拽文件到此区域开始转换</p>
+          <p className="ant-upload-text">点击或者拖拽文件到此区域上传文件</p>
           <p className="ant-upload-hint">此工具为纯前端转换，不会将文件上传服务端，请放心使用</p>
         </Upload.Dragger>
       </div>

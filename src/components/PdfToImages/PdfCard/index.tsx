@@ -124,7 +124,7 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
             <div className="pdf-settings">
               <Form form={form} onValuesChange={onValuesChange}>
                 <Form.Item label="转换页码" name="pagination">
-                  <Pagination />
+                  <Pagination min={1} max={file.total} />
                 </Form.Item>
                 <Form.Item
                   className="pdf-form-item"
