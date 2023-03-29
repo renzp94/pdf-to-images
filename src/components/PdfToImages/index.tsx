@@ -5,6 +5,7 @@ import { InboxOutlined } from '@ant-design/icons'
 import './index.scoped.less'
 import { getTransformFileInfo } from './utils'
 import PdfCard from './PdfCard'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export interface TransformFile {
   id: number
@@ -59,9 +60,21 @@ const PdfToImages = () => {
         </Upload.Dragger>
       </div>
       <div className="files">
-        {files.map(file => {
-          return <PdfCard key={file.id} file={file} onRemove={onRemove} />
-        })}
+        <AnimatePresence>
+          {files.map((file, i) => {
+            return (
+              <motion.div
+                initial={{ x: -200, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: 200, opacity: 0 }}
+                key={file.id}
+                transition={{ ease: 'easeOut', duration: 0.4, delay: i * 0.3 }}
+              >
+                <PdfCard file={file} onRemove={onRemove} />
+              </motion.div>
+            )
+          })}
+        </AnimatePresence>
       </div>
     </>
   )
