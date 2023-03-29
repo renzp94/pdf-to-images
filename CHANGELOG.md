@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/renzp94/pdf-to-images/compare/v0.0.4...v0.0.5) (2023-03-29)
+
+
+### 新功能
+
+* 添加动画效果 ([758cde3](https://github.com/renzp94/pdf-to-images/commit/758cde33c43e47bc6866960730991becc7d657ef))
+
+
+### 其他
+
+* 添加文件上传loading及交互优化 ([eee71b2](https://github.com/renzp94/pdf-to-images/commit/eee71b29137e489a4412e4168899b82bcd84bf6e))
+
 ### [0.0.4](https://github.com/renzp94/pdf-to-images/compare/v0.0.3...v0.0.4) (2023-03-29)
 
 
