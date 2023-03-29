@@ -7,5 +7,6 @@ module.exports = defineConfig({
   },
   assets: {
     jsxTools: 'esbuild',
+    cssScoped: true,
   },
 })

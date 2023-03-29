@@ -5,10 +5,7 @@ import './app.less'
 const App: React.FC = () => {
   return (
     <div className="page">
-      <div className="panel upload">
-        <PdfToImages />
-      </div>
-      {/* <div className="panel">列表</div> */}
+      <PdfToImages />
     </div>
   )
 }

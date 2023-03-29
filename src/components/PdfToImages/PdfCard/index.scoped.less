@@ -1,0 +1,82 @@
+.pdf {
+  &-card {
+    position: relative;
+    width: 500px;
+    margin-bottom: 8px;
+    border: 1px solid #ebeef5;
+    border-radius: 8px;
+
+    &-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &:hover {
+      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    }
+  }
+
+  &-cover {
+    flex: none;
+
+    ::global .ant-image-img {
+      height: 118px;
+      border-radius: 8px 0 0 8px;
+      object-fit: cover;
+    }
+  }
+
+  &-info {
+    flex: none;
+    width: calc(100% - 84px - 120px);
+    padding: 8px 8px 0;
+
+    ::global .ant-space {
+      width: 100%;
+    }
+  }
+
+  &-settings ::global {
+    .ant-form-item {
+      margin-bottom: 8px;
+    }
+  }
+
+  &-name {
+    font-weight: 700;
+  }
+
+  &-actions {
+    display: flex;
+    position: relative;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+  }
+
+  &-close-icon {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #dcdfe6;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+.type-select {
+  width: 204px;
+}
+
+.action-icon {
+  color: #1677ff;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+.progress-text {
+  font-size: 12px;
+}
