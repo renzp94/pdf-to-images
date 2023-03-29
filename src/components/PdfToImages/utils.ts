@@ -3,7 +3,6 @@ import 'pdfjs-dist/build/pdf.worker.entry'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
 import type { RcFile } from 'antd/es/upload'
 import JSZip from 'jszip'
-import { throttle } from 'lodash-es'
 
 /**
  * 获取pdfDocument实例
@@ -69,13 +68,12 @@ export const transform = async (
     return { data, filename }
   }
   const zip = new JSZip()
-  const change = throttle((progress: number) => onChange?.(progress >= 100 ? 100 : progress), 1000)
   while (index <= total) {
     const base64Data = await getImageData(pdfDocument, index)
     const blob = dataURLtoBlob(base64Data)
     zip.file(`${filename}-${index++}${type}`, blob)
     const progress = parseFloat(((index / total) * 100).toFixed(2))
-    change(progress)
+    onChange?.(progress >= 100 ? 100 : progress)
   }
 
   return { zip, filename }
@@ -142,4 +140,35 @@ export const downloadFile = (blobData: Blob, name: string) => {
   document.body.removeChild(tempLink)
   // 释放blob URL地址
   window.URL.revokeObjectURL(blobURL)
+}
+/**
+ * 判断是否未定义
+ * @param v 变量
+ * @returns 如果变量定义则返回true,否则返回false
+ */
+export const isUndef = (v: unknown): boolean => v === undefined || v === null
+
+export type classNamesOptions = Array<string | Record<string, any>> | Record<string, any> | string
+/**
+ * 根据条件判断生产className
+ * @param options classNamesOptions
+ * @returns 返回实际渲染的className
+ */
+export const classNames = (options: classNamesOptions): string | undefined => {
+  if (typeof options === 'string') {
+    return options
+  }
+
+  if (options instanceof Array) {
+    return options.map(classNames).join(' ')
+  }
+
+  const isDef = !isUndef(options)
+  if (isDef && typeof options === 'object') {
+    return Object.keys(options)
+      .filter((key: string) => !!options[key])
+      .join(' ')
+  }
+
+  return undefined
 }

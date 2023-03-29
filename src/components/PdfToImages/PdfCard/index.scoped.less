@@ -78,5 +78,25 @@
 }
 
 .progress-text {
-  font-size: 12px;
+  animation: revolve 2.5s linear infinite;
+  color: #1677ff;
+  font-size: 24px;
+}
+
+@keyframes revolve {
+  20% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  70% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

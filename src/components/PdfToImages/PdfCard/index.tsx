@@ -1,4 +1,9 @@
-import { CloseCircleOutlined, CloudDownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
+import {
+  CloseCircleOutlined,
+  CloudDownloadOutlined,
+  HourglassOutlined,
+  PlayCircleOutlined,
+} from '@ant-design/icons'
 import { Button, Form, Image, Progress, Select, Space, Tooltip, Typography } from 'antd'
 import JSZip from 'jszip'
 import React, { useEffect, useState } from 'react'
@@ -84,7 +89,10 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
     }
   }
 
-  const onValuesChange = () => setStatus(STATUS.NONE)
+  const onValuesChange = () => {
+    setProgress(0)
+    setStatus(STATUS.NONE)
+  }
 
   const components = {
     [STATUS.NONE]: (
@@ -101,11 +109,13 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
     [STATUS.TRANSFORM]: (
       <Progress
         type="circle"
-        status={progress < 100 ? 'active' : 'success'}
+        status="active"
         percent={progress}
         size={100}
         format={() => (
-          <span className="progress-text">{progress < 100 ? '转换中' : '转换完成'}</span>
+          <div className="progress-text">
+            <HourglassOutlined />
+          </div>
         )}
       />
     ),

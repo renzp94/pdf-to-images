@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { message, Modal, Upload } from 'antd'
+import { message, Modal, Spin, Upload } from 'antd'
 import type { RcFile } from 'antd/es/upload'
 import { InboxOutlined } from '@ant-design/icons'
 import './index.scoped.less'
@@ -19,22 +19,35 @@ export interface TransformFile {
 
 const PdfToImages = () => {
   const [files, setFiles] = useState<TransformFile[]>([])
+  const [loading, setLoading] = useState(false)
 
-  const onBeforeUpload = async (file: RcFile) => {
+  const onBeforeUpload = async (file: RcFile, fileList: RcFile[]) => {
     if (file.type !== 'application/pdf') {
       message.warning('仅支持上传PDF格式的文件')
       return
     }
+    try {
+      setLoading(true)
 
-    const { cover, total } = await getTransformFileInfo(file)
-    const target: TransformFile = {
-      id: Date.now(),
-      data: file,
-      cover,
-      total,
+      const { cover, total } = await getTransformFileInfo(file)
+      const target: TransformFile = {
+        id: Date.now(),
+        data: file,
+        cover,
+        total,
+      }
+
+      setFiles(val => {
+        const list = [...val, target]
+        if (fileList.length === list.length) {
+          setLoading(false)
+        }
+        return list
+      })
+    } catch {
+      setLoading(false)
     }
 
-    setFiles(val => [...val, target])
     return false
   }
 
@@ -51,13 +64,20 @@ const PdfToImages = () => {
   return (
     <>
       <div className="upload">
-        <Upload.Dragger multiple accept=".pdf" showUploadList={false} beforeUpload={onBeforeUpload}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">点击或者拖拽文件到此区域上传文件</p>
-          <p className="ant-upload-hint">此工具为纯前端转换，不会将文件上传服务端，请放心使用</p>
-        </Upload.Dragger>
+        <Spin spinning={loading}>
+          <Upload.Dragger
+            multiple
+            accept=".pdf"
+            showUploadList={false}
+            beforeUpload={onBeforeUpload}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">点击或者拖拽文件到此区域上传文件</p>
+            <p className="ant-upload-hint">此工具为纯前端转换，不会将文件上传服务端，请放心使用</p>
+          </Upload.Dragger>
+        </Spin>
       </div>
       <div className="files">
         <AnimatePresence>
