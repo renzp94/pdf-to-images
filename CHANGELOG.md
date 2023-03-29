@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/renzp94/pdf-to-images/compare/v0.0.3...v0.0.4) (2023-03-29)
+
+
+### CI配置
+
+* 调整release脚本 ([8a91c04](https://github.com/renzp94/pdf-to-images/commit/8a91c048472c31c38621fd5bdfd5c4c6fdcbc5b9))
+
+
+### Bug修复
+
+* 修复多个文件同时转换时要全部转换完才能下载的问题 ([655e1b3](https://github.com/renzp94/pdf-to-images/commit/655e1b3c6ea098e1f4cfa7542ed8ed112f90293f))
+
 ### [0.0.3](https://github.com/renzp94/pdf-to-images/compare/v0.0.2...v0.0.3) (2023-03-29)
 
 
