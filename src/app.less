@@ -8,9 +8,11 @@
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   padding: 16px 0;
-  text-align: right;
 
   &-icon {
     transition: color 0.3s;
@@ -22,6 +24,12 @@
       color: #000;
     }
   }
+}
+
+.logo {
+  width: 28px;
+  height: 24px;
+  object-fit: cover;
 }
 
 .panel {
