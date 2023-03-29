@@ -1,5 +1,6 @@
 import { CloseCircleOutlined, CloudDownloadOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { Button, Form, Image, Progress, Select, Space, Tooltip, Typography } from 'antd'
+import JSZip from 'jszip'
 import React, { useEffect, useState } from 'react'
 import { TransformFile } from '..'
 import { downloadFile, transform } from '../utils'
@@ -37,7 +38,7 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
   const [status, setStatus] = useState(STATUS.NONE)
   const [progress, setProgress] = useState(0)
   const [transformData, setTransformData] = useState<
-    { data: Blob; filename: string; total: number; type: string } | undefined
+    { zip?: JSZip; data?: Blob; filename: string; total: number; type: string } | undefined
   >()
 
   useEffect(() => {
@@ -61,16 +62,25 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
       onChange: setProgress,
     })
     setTransformData({ ...data, total: pageTotal, type })
-    console.log(file.id, status)
-
     setStatus(STATUS.DONE)
   }
+  const [downloadLoading, setDownloadLoading] = useState(false)
   // 下载
-  const onDownload = () => {
+  const onDownload = async () => {
     if (transformData) {
-      const isMultiple = (transformData.total ?? 0) > 1
-      const suffix = isMultiple ? '.zip' : transformData.type ?? '.png'
-      downloadFile(transformData.data, `${transformData.filename}${suffix}`)
+      try {
+        setDownloadLoading(true)
+        const isMultiple = (transformData.total ?? 0) > 1
+        const suffix = isMultiple ? '.zip' : transformData.type ?? '.png'
+        let data: Blob = transformData?.data as Blob
+        if (isMultiple) {
+          data = (await transformData?.zip?.generateAsync({ type: 'blob' })) as Blob
+        }
+
+        downloadFile(data, `${transformData.filename}${suffix}`)
+      } finally {
+        setDownloadLoading(false)
+      }
     }
   }
 
@@ -105,6 +115,7 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
           type="primary"
           shape="circle"
           size="large"
+          loading={downloadLoading}
           icon={<CloudDownloadOutlined />}
           onClick={onDownload}
         />

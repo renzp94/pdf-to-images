@@ -77,9 +77,8 @@ export const transform = async (
     const progress = parseFloat(((index / total) * 100).toFixed(2))
     change(progress)
   }
-  const data = await zip.generateAsync({ type: 'blob' })
 
-  return { data, filename }
+  return { zip, filename }
 }
 /**
  * 获取图片数据
