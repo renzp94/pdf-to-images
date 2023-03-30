@@ -17,6 +17,8 @@ export interface TransformFile {
   total?: number
 }
 
+const offsetX = 100
+
 const PdfToImages = () => {
   const [files, setFiles] = useState<TransformFile[]>([])
   const [loading, setLoading] = useState(false)
@@ -90,9 +92,9 @@ const PdfToImages = () => {
           {files.map((file, i) => {
             return (
               <motion.div
-                initial={{ x: -200, opacity: 0 }}
+                initial={{ x: -offsetX, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                exit={{ x: 200, opacity: 0 }}
+                exit={{ x: offsetX, opacity: 0 }}
                 key={file.id}
                 transition={{ ease: 'easeOut', duration: 0.4, delay: i * 0.3 }}
               >
