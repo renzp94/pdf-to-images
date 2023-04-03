@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/renzp94/pdf-to-images/compare/v0.0.6...v0.0.7) (2023-04-03)
+
+
+### 其他
+
+* 调整动画 ([7cac312](https://github.com/renzp94/pdf-to-images/commit/7cac312aa3df412a5337f45c07061d0d14591775))
+
+
+### CI配置
+
+* 更新github action命令 ([336892b](https://github.com/renzp94/pdf-to-images/commit/336892b8fa34d5095d96732f999fb53f162fe061))
+
+
+### 新功能
+
+* 可以修改输出图片的名称 ([732cb9c](https://github.com/renzp94/pdf-to-images/commit/732cb9c5523fc444b22bb05926845d1401323adf))
+
 ### [0.0.6](https://github.com/renzp94/pdf-to-images/compare/v0.0.5...v0.0.6) (2023-03-29)
 
 
