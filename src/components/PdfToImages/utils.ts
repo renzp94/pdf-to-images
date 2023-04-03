@@ -42,6 +42,7 @@ export const getTransformFileInfo = async (file: RcFile) => {
 export interface TransformOptions {
   pageStart?: number
   pageTotal?: number
+  filename?: string
   type: string
   onChange?: (index: number) => void
 }
@@ -52,7 +53,7 @@ export interface TransformOptions {
  */
 export const transform = async (
   file: RcFile,
-  { pageStart = 1, pageTotal, type = '.png', onChange }: TransformOptions
+  { pageStart = 1, pageTotal, type = '.png', filename, onChange }: TransformOptions
 ) => {
   const pdfDocument = await getPdfDocument(file)
 
@@ -60,23 +61,22 @@ export const transform = async (
   if (total === 0) {
     throw new Error('pdf文件内无数据转换')
   }
-  const [filename] = file.name.split('.')
   let index = pageStart
   if (total === index) {
     const base64Data = await getImageData(pdfDocument, index)
     const data = dataURLtoBlob(base64Data)
-    return { data, filename }
+    return { data, filename: filename ?? '1' }
   }
   const zip = new JSZip()
   while (index <= total) {
     const base64Data = await getImageData(pdfDocument, index)
     const blob = dataURLtoBlob(base64Data)
-    zip.file(`${filename}-${index++}${type}`, blob)
+    zip.file(`${filename ? `${filename}-` : ''}${index++}${type}`, blob)
     const progress = parseFloat(((index / total) * 100).toFixed(2))
     onChange?.(progress >= 100 ? 100 : progress)
   }
 
-  return { zip, filename }
+  return { zip, filename: filename ?? '1' }
 }
 /**
  * 获取图片数据

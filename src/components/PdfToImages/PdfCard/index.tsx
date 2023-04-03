@@ -4,7 +4,7 @@ import {
   HourglassOutlined,
   PlayCircleOutlined,
 } from '@ant-design/icons'
-import { Button, Form, Image, Progress, Select, Space, Tooltip, Typography } from 'antd'
+import { Button, Form, Image, Input, Progress, Select, Tooltip } from 'antd'
 import JSZip from 'jszip'
 import React, { useEffect, useState } from 'react'
 import { TransformFile } from '..'
@@ -49,6 +49,7 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
   useEffect(() => {
     form.setFieldsValue({
       pagination: [1, file?.total],
+      filename: file?.data?.name?.replace('.pdf', ''),
     })
   }, [file, form])
 
@@ -57,6 +58,7 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
     const {
       pagination: [pageStart, pageTotal],
       type,
+      filename,
     } = form.getFieldsValue()
 
     setStatus(STATUS.TRANSFORM)
@@ -64,6 +66,7 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
       pageStart,
       pageTotal,
       type,
+      filename,
       onChange: setProgress,
     })
     setTransformData({ ...data, total: pageTotal, type })
@@ -82,7 +85,10 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
           data = (await transformData?.zip?.generateAsync({ type: 'blob' })) as Blob
         }
 
-        downloadFile(data, `${transformData.filename}${suffix}`)
+        downloadFile(
+          data,
+          `${transformData.filename || file?.data?.name?.replace('.pdf', '')}${suffix}`
+        )
       } finally {
         setDownloadLoading(false)
       }
@@ -137,27 +143,22 @@ const PdfCard = ({ file, onRemove }: PdfCardProps) => {
     <div className="pdf-card">
       <div className="pdf-card-container">
         <Image rootClassName="pdf-cover" src={file?.cover} />
-        <div className="pdf-info">
-          <Space direction="vertical" size={8}>
-            <Typography.Text className="pdf-name" ellipsis={{ tooltip: file?.data.name }}>
-              {file?.data.name}
-            </Typography.Text>
-            <div className="pdf-settings">
-              <Form form={form} onValuesChange={onValuesChange}>
-                <Form.Item label="转换页码" name="pagination">
-                  <Pagination min={1} max={file.total} />
-                </Form.Item>
-                <Form.Item
-                  className="pdf-form-item"
-                  label="图片类型"
-                  name="type"
-                  initialValue=".png"
-                >
-                  <Select className="type-select" options={imgTypes} />
-                </Form.Item>
-              </Form>
-            </div>
-          </Space>
+        <div className="pdf-settings">
+          <Form form={form} onValuesChange={onValuesChange}>
+            <Form.Item
+              label="图片名称"
+              name="filename"
+              tooltip="如果填写名称，则按照'名称-页码'命名，否则按照'页码'命名"
+            >
+              <Input placeholder="请输入文件名称" allowClear />
+            </Form.Item>
+            <Form.Item label="转换页码" name="pagination">
+              <Pagination min={1} max={file.total} />
+            </Form.Item>
+            <Form.Item className="pdf-form-item" label="图片类型" name="type" initialValue=".png">
+              <Select className="type-select" options={imgTypes} />
+            </Form.Item>
+          </Form>
         </div>
         <div className="pdf-actions">
           <CloseCircleOutlined className="pdf-close-icon" onClick={() => onRemove?.(file.id)} />
